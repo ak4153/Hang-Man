@@ -1,6 +1,6 @@
-game1 = new Hangman('cat', 5)
+const game1 = new Hangman('cat', 5)
 document.getElementById('guessesRemaining').textContent = game1.remainingGuesses
-game1.getPuzzle()
+
 
 //rendering letter on screen
 const renderLetterButtons = function () {
