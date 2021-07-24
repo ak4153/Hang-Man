@@ -1,5 +1,25 @@
-const game1 = new Hangman('cat', 5)
-document.getElementById('guessesRemaining').textContent = game1.remainingGuesses
+var game1
+//fetching random words from server & setting up the game with words
+const r = new XMLHttpRequest
+var rDataJSON
+var obj
+r.open('GET', 'http://puzzle.mead.io/puzzle')
+r.send()
+r.addEventListener('readystatechange', (e) => {
+    //check if server is ok
+    if (e.target.readyState == 4 ) {
+        console.log('conn OK')
+        rDataJSON = r.responseText
+        obj = JSON.parse(rDataJSON)
+        console.log(obj.puzzle)
+        game1 = new Hangman(obj.puzzle, 5)
+        document.getElementById('guessesRemaining').textContent = game1.remainingGuesses
+        game1.Puzzle
+    }
+    if(e.target.readyState != 4){
+        console.log('error with server')
+    }
+})
 
 
 //rendering letter on screen
@@ -13,9 +33,9 @@ const renderLetterButtons = function () {
         button.addEventListener('click', function () {
             button.disabled = true
             game1.makeGuess(c)
-            game1.getPuzzle()
-            game1.getGameStatus()
-            
+            game1.Puzzle
+            game1.GameStatus
+
         })
     }
 }()
